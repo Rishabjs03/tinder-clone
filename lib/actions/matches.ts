@@ -74,3 +74,49 @@ export async function updateLikeProfiles(toUserId: string) {
     }
     return { success: true, isMatch: false }
 }
+
+export async function getUserMatches() {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+        throw new Error("User not authenticated")
+    }
+    const { data: matches, error } = await supabase
+        .from("matches")
+        .select("*")
+        .or(`user1_id.eq.${user.id},user2_id.eq.${user.id}`)
+        .eq("is_active", true);
+    if (error) {
+        throw new Error("Failed to fetch match list")
+    }
+    const matchedUsers: UserProfile[] = []
+
+    for (const match of matches || []) {
+        const otherUserId = match.user1_id === user.id ? match.user2_id : match.user1_id;
+
+        const { data: otherUser, error: userError } = await supabase.from("users").select("*").eq("id", otherUserId).single()
+        if (userError) {
+            continue;
+        }
+        matchedUsers.push({
+            id: otherUser.id,
+            full_name: otherUser.full_name,
+            username: otherUser.username,
+            email: otherUser.email,
+            gender: otherUser.gender,
+            birthdate: otherUser.birthdate,
+            bio: otherUser.bio,
+            avatar_url: otherUser.avatar_url,
+            preferences: otherUser.preferences,
+            location_lat: undefined,
+            location_lng: undefined,
+            last_active: new Date().toISOString(),
+            is_verified: true,
+            is_online: false,
+            created_at: match.created_at,
+            updated_at: match.created_at,
+        });
+    }
+    return matchedUsers
+}
