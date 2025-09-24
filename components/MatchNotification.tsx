@@ -46,8 +46,8 @@ export default function MatchNotification({
               src={match?.avatar_url}
               alt={match?.full_name}
               className="w-full h-full object-cover"
-              width={16}
-              height={16}
+              width={64}
+              height={64}
             />
           </div>
 

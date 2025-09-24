@@ -135,8 +135,8 @@ export default function ProfilePage() {
                         src={profile.avatar_url || "/default-avatar.png"}
                         alt={profile.full_name || "profile-image"}
                         className="w-full h-full object-cover"
-                        width={24}
-                        height={24}
+                        width={96}
+                        height={96}
                       />
                     </div>
                   </div>

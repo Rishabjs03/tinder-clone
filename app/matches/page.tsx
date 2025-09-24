@@ -14,14 +14,13 @@ export default function MatchPage() {
   const [currentIndex, setcurrentIndex] = useState(0);
   const [showMatchNotification, setshowMatchNotification] = useState(false);
   const [matchedUser, setmatchedUser] = useState<UserProfile | null>(null);
-
   const router = useRouter();
+
   useEffect(() => {
     async function loadUser() {
       try {
         const potentialMatchData = await getPotentialMatches();
         setpotentialMatch(potentialMatchData);
-        console.log(potentialMatchData);
       } catch (error) {
         console.log("error in match profile fetching:", error);
       } finally {
