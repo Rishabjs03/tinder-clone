@@ -27,8 +27,8 @@ const calculateAge = (birthdate: string) => {
 export default function ChatHeader({ user, onVideoCall }: ChatHeaderProps) {
   const router = useRouter();
   return (
-    <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4">
-      <div className="flex items-center justify-between">
+    <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 border rounded-br-lg rounded-bl-lg">
+      <div className="flex items-center justify-between ">
         <div className="flex items-center space-x-4">
           <button
             onClick={() => router.back()}
@@ -54,11 +54,11 @@ export default function ChatHeader({ user, onVideoCall }: ChatHeaderProps) {
               <Image
                 src={user.avatar_url}
                 alt={user.full_name}
-                className="w-full h-full object-cover"
+                className="w-full z-5 h-full object-cover"
                 width={48}
                 height={48}
               />
-              <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></div>
+              <div className="absolute bottom-0 right-0 z-10 w-3 h-3 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></div>
             </div>
 
             <div>

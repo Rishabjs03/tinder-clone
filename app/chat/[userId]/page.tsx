@@ -2,6 +2,7 @@
 
 import { UserProfile } from "@/app/profile/page";
 import ChatHeader from "@/components/ChatHeaders";
+import StreamChatInterface from "@/components/StreamChatInterface";
 import { useAuth } from "@/contexts/auth-context";
 import { getUserMatches } from "@/lib/actions/matches";
 import { useParams, useRouter } from "next/navigation";
@@ -42,7 +43,7 @@ export default function ChatConversationPage() {
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto"></div>
           <p className="mt-4 text-gray-600 dark:text-gray-400">
-            Loading your matches...
+            Loading your chats...
           </p>
         </div>
       </div>
@@ -85,7 +86,7 @@ export default function ChatConversationPage() {
         />
 
         <div className="flex-1 min-h-0">
-          {/* <StreamChatInterface otherUser={otherUser} ref={chatInterfaceRef} /> */}
+          <StreamChatInterface otherUser={otherUser} />
         </div>
       </div>
     </div>
