@@ -115,8 +115,8 @@ export default function EditProfile() {
                       src={formData.avatar_url || "/default-avatar.png"}
                       alt="Profile"
                       className="w-full h-full object-cover"
-                      width={24}
-                      height={24}
+                      width={96}
+                      height={96}
                     />
                   </div>
                   <PhotoUpload
