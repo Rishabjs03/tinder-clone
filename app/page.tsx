@@ -15,7 +15,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-pink-50 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center">
-      {/* Hero Section - Full Page */}
       <section className="relative overflow-hidden w-full">
         <div className="absolute inset-0 "></div>
         <div className="relative container mx-auto px-6 py-20 lg:py-32">

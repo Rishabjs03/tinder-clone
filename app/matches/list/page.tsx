@@ -1,16 +1,20 @@
 "use client";
 
 import { UserProfile } from "@/app/profile/page";
+import { useAuth } from "@/contexts/auth-context";
 import { getUserMatches } from "@/lib/actions/matches";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { useEffect, useState } from "react";
 
 export default function MatchedList() {
+  const { user } = useAuth();
   const [matches, setmatches] = useState<UserProfile[]>([]);
   const [loading, setloading] = useState(true);
   const [error, seterror] = useState<string | null>(null);
+  const router = useRouter();
   useEffect(() => {
     async function loadMatchedList() {
       try {
@@ -73,13 +77,21 @@ export default function MatchedList() {
               No matches yet
             </h2>
             <p className="text-gray-600 dark:text-gray-400 mb-6">
-              Start swiping to find your perfect match!
+              {user ? (
+                <span>Start swiping to find your perfect match!</span>
+              ) : (
+                <span>Sign in to find your perfect match!</span>
+              )}
             </p>
             <Link
               href="/matches"
               className="bg-gradient-to-r from-pink-500 to-red-500 text-white font-semibold py-3 px-6 rounded-full hover:from-pink-600 hover:to-red-600 transition-all duration-200"
             >
-              Start Swiping
+              {user ? (
+                <span>Start Swiping</span>
+              ) : (
+                <span onClick={() => router.push("/auth")}>Sign in</span>
+              )}
             </Link>
           </div>
         ) : (

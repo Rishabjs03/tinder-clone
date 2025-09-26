@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { UserProfile } from "../profile/page";
 import Link from "next/link";
 import Image from "next/image";
+import { useAuth } from "@/contexts/auth-context";
+import { useRouter } from "next/navigation";
 
 interface ChatData {
   id: string;
@@ -15,6 +17,8 @@ interface ChatData {
 }
 
 export default function ChatPage() {
+  const { user } = useAuth();
+  const router = useRouter();
   const [chats, setchats] = useState<ChatData[]>([]);
 
   const [error, seterror] = useState<string | null>(null);
@@ -93,13 +97,25 @@ export default function ChatPage() {
                 No conversations yet
               </h2>
               <p className="text-gray-600 dark:text-gray-400 mb-6">
-                Start swiping to find matches and begin conversations!
+                {user ? (
+                  <span>
+                    Start swiping to find matches and begin conversations!
+                  </span>
+                ) : (
+                  <span onClick={() => router.push("/auth")}>
+                    Sign in to show your conversation
+                  </span>
+                )}
               </p>
               <Link
                 href="/matches"
                 className="bg-gradient-to-r from-pink-500 to-red-500 text-white font-semibold py-3 px-6 rounded-full hover:from-pink-600 hover:to-red-600 transition-all duration-200"
               >
-                Start Swiping
+                {user ? (
+                  <span>Start Swiping</span>
+                ) : (
+                  <span onClick={() => router.push("/auth")}>Sign in</span>
+                )}
               </Link>
             </div>
           ) : (

@@ -4,6 +4,8 @@ import { GetProfiles } from "@/lib/actions/profile";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/auth-context";
 
 export interface UserProfile {
   id: string;
@@ -34,6 +36,8 @@ export interface UserPreferences {
 }
 
 export default function ProfilePage() {
+  const { user } = useAuth();
+  const router = useRouter();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -99,13 +103,24 @@ export default function ProfilePage() {
             Profile not found
           </h2>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
-            {error || "Unable to load your profile. Please try again."}
+            {user ? (
+              <span>
+                {" "}
+                {error || "Unable to load your profile. Please try again."}
+              </span>
+            ) : (
+              <span>Sign in to show your profile!</span>
+            )}
           </p>
           <button
             onClick={() => window.location.reload()}
             className="bg-gradient-to-r from-pink-500 to-red-500 text-white font-semibold py-3 px-6 rounded-full hover:from-pink-600 hover:to-red-600 transition-all duration-200"
           >
-            Retry
+            {user ? (
+              <span>Retry</span>
+            ) : (
+              <span onClick={() => router.push("/auth")}>Sign in</span>
+            )}
           </button>
         </div>
       </div>

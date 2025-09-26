@@ -7,8 +7,10 @@ import { useRouter } from "next/navigation";
 import MatchCard from "@/components/MatchCard";
 import MatchButton from "@/components/MatchButtons";
 import MatchNotification from "@/components/MatchNotification";
+import { useAuth } from "@/contexts/auth-context";
 
 export default function MatchPage() {
+  const { user } = useAuth();
   const [potentialMatch, setpotentialMatch] = useState<UserProfile[]>([]);
   const [loading, setloading] = useState<boolean>(true);
   const [currentIndex, setcurrentIndex] = useState(0);
@@ -79,13 +81,27 @@ export default function MatchPage() {
             No more profiles to show
           </h2>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
-            Check back later for new matches, or try adjusting your preferences!
+            {user ? (
+              <span>
+                {" "}
+                Check back later for new matches, or try adjusting your
+                preferences!
+              </span>
+            ) : (
+              <span onClick={() => router.push("?auth")}>
+                Sign in to show profiles!
+              </span>
+            )}
           </p>
           <button
             onClick={() => setcurrentIndex(0)}
             className="bg-gradient-to-r from-pink-500 to-red-500 text-white font-semibold py-3 px-6 rounded-full hover:from-pink-600 hover:to-red-600 transition-all duration-200"
           >
-            Refresh
+            {user ? (
+              <span>Refresh</span>
+            ) : (
+              <span onClick={() => router.push("/auth")}>Sign in</span>
+            )}
           </button>
         </div>
         {showMatchNotification && matchedUser && (

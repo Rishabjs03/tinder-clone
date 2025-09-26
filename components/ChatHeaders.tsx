@@ -72,7 +72,7 @@ export default function ChatHeader({ user, onVideoCall }: ChatHeaderProps) {
           </div>
         </div>
 
-        <div className="flex items-center space-x-2">
+        {/* <div className="flex items-center space-x-2">
           <button
             onClick={onVideoCall}
             className="p-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 transition-all duration-200 shadow-lg hover:shadow-xl"
@@ -92,7 +92,7 @@ export default function ChatHeader({ user, onVideoCall }: ChatHeaderProps) {
               />
             </svg>
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
